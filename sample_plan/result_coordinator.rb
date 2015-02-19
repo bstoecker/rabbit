@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
+# call this as follows:
+# ruby -rubygems coordinator_producer.rb ":id" ":number_of_jobs"
+
 require "bunny"
 require 'byebug'
 
