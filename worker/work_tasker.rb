@@ -15,8 +15,6 @@ class WorkTasker
 
     queue.publish(@msg, :persistent => true)
 
-    sleep 1.0
-
     @conn.close
   end
 end

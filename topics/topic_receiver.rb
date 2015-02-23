@@ -19,8 +19,12 @@ class TopicReceiver
         handler.call(body)
       end
     rescue Interrupt => _
-      @channel.close
-      @conn.close
+      close
     end
+  end
+
+  def close
+    @channel.close
+    @conn.close
   end
 end
