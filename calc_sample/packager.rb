@@ -13,10 +13,9 @@ worker.receive_mode do |msg|
   job_count = values[1].to_i
 
   WorkTasker.new('packager-to-receiver', "#{id}||#{job_count}").send
-  sleep(0.5)
+
   job_count.times do |job|
     new_msg  = "#{id}||#{job}"
     WorkTasker.new('packager-to-calculator', "#{id}||#{job + 1}").send
-    sleep(0.1)
   end
 end

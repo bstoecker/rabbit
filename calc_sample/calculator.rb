@@ -12,6 +12,5 @@ worker.receive_mode do |msg|
   new_msg = "Task #{values[1]} DONE"
   topic = 'calculator-to-receiver'
   routing_key = "#{topic}.#{id}"
-  sleep(0.5)
   TopicTasker.new(topic, routing_key, new_msg).send
 end
