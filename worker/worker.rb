@@ -14,7 +14,7 @@ class Worker
   def receive_mode(&handler)
     puts " [*] Waiting for messages in #{@queue.name}. To exit press CTRL+C"
     begin
-      @queue.subscribe(manual_ack: true, block: true) do |info, properties, body|
+      @queue.subscribe(manual_ack: true, block: true) do |info, prop, body|
         handler.call(body)
 
         @channel.ack(info.delivery_tag)

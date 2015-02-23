@@ -1,18 +1,12 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-require "bunny"
-require 'byebug'
+require_relative 'topic_tasker'
 
-conn = Bunny.new
-conn.start
-
-ch       = conn.create_channel
-x        = ch.topic("topic_logs")
-severity = ARGV.shift || "anonymous.info"
+routing_key = ARGV.shift || "anonymous.info"
+topic = 'topic'
 msg      = ARGV.empty? ? "Hello World!" : ARGV.join("||")
 
-x.publish(msg, :routing_key => severity)
-puts " [x] Sent #{severity}:#{msg}"
+puts "Send: topic: #{topic}; routing_key: #{routing_key}, msg: #{msg}"
 
-conn.close
+tt = TopicTasker.new(topic, routing_key, msg).send

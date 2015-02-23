@@ -1,30 +1,15 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-require "bunny"
+require_relative 'topic_receiver'
 
 if ARGV.empty?
   abort "Usage: #{$0} [binding key]"
 end
 
-conn = Bunny.new
-conn.start
+topic_routing_key = ARGV[0]
 
-ch  = conn.create_channel
-x   = ch.topic("topic_logs")
-q   = ch.queue("", :exclusive => true)
-
-ARGV.each do |severity|
-  q.bind(x, :routing_key => severity)
-end
-
-puts " [*] Waiting for logs. To exit press CTRL+C"
-
-begin
-  q.subscribe(:block => true) do |delivery_info, properties, body|
-    puts " [x] #{delivery_info.routing_key}:#{body}"
-  end
-rescue Interrupt => _
-  ch.close
-  conn.close
+tr = TopicReceiver.new('topic', topic_routing_key)
+tr.receive_mode do |msg|
+  puts " [x] #{topic_routing_key}: #{msg}"
 end
