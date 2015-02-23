@@ -7,9 +7,9 @@ conn = Bunny.new
 conn.start
 
 channel = conn.create_channel
-queue    = channel.queue("task_queue", :durable => true)
+queue    = channel.queue("workertest", :durable => true)
 
-50.times do |i|
+4.times do |i|
   t = rand(1..15)
   msg  = "                      #{i + 1}-th message: " + t.times.map{|j| "."}.join
 
