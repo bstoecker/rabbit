@@ -23,6 +23,16 @@ class TopicReceiver
     end
   end
 
+  def receive_once(&handler)
+    puts " [*] Waiting for single message in #{@queue.name}. "\
+         "To exit press CTRL+C"
+    receive_mode do |msg|
+      result = handler.call(msg)
+      close
+      result
+    end
+  end
+
   def close
     @channel.close
     @conn.close
