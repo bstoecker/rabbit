@@ -1,0 +1,12 @@
+{application, rabbit,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { rabbit_app, []}},
+  {env, []}
+ ]}.
