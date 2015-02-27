@@ -7,6 +7,53 @@ import (
 const (
   ConnectionString = "amqp://guest:guest@localhost:5672/"
   TaskQueueName = "producer-to-calculator"
+  JsonString = `
+    {
+      "taskId": "vnjwv-432tfs-43t2f3-fg43g",
+      "planningUnit": 4711,
+      "date": "2014-01-01",
+      "simulation": true,
+      "activities": [
+        {
+          "activityId": 1,
+          "required": [1, 2, 1, 4, 5, 2]
+        },
+        {
+          "activityId": 2,
+          "required": [1, 2, 1, 4, 5, 2]
+        }
+      ],
+      "employees": [
+        {
+          "employeeId": 1,
+          "activities": [
+            {
+              "activityId": 1,
+              "available": [false, true, false, false, false, true]
+            },
+            {
+              "activityId": 2,
+              "available": [false, false, false, false, false, true]
+            }
+          ],
+          "maxWorkingTime": 28800
+        },
+        {
+          "employeeId": 2,
+          "activities": [
+            {
+              "activityId": 1,
+              "available": [false, true, false, false, false, true]
+            },
+            {
+              "activityId": 2,
+              "available": [false, false, false, false, false, true]
+            }
+          ],
+          "maxWorkingTime": 14400
+        }
+      ]
+    }`
 )
 
 func main() {
@@ -30,7 +77,7 @@ func main() {
   publishing := amqp.Publishing{
     DeliveryMode: amqp.Persistent,
     ContentType: "text/plain",
-    Body: []byte("foobarbaz"),
+    Body: []byte(JsonString),
   }
   ch.Publish(
     "", // exchange

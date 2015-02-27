@@ -39,7 +39,7 @@ func main() {
   forever := make(chan bool)
   go func() {
     for d := range msgs {
-      log.Printf("Received a message: %s", "foobar")
+      log.Printf("Received a message: %s", d.Body)
       // err := processMessage(d, ch)
       // if err != nil {
       //   log.Printf("Failed to process message:\n%v", err)
