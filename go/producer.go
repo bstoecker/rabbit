@@ -6,7 +6,7 @@ import (
 
 const (
   ConnectionString = "amqp://guest:guest@localhost:5672/"
-  TaskQueueName = "producer-to-calculator"
+  TaskQueueName = "plan.staffing-calculation-tasks"
   JsonString = `
     {
       "taskId": "vnjwv-432tfs-43t2f3-fg43g",

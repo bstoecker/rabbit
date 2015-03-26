@@ -6,7 +6,7 @@ import (
 
 const (
   ConnectionString = "amqp://guest:guest@localhost:5672/"
-  ResultQueueName = "calculator-to-receiver"
+  ResultQueueName = "plan.staffing-calculation-results"
 )
 
 
